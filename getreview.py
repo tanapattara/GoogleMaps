@@ -1,0 +1,3 @@
+from selenium import webdriver
+driver = webdriver.Chrome()
+driver.get('https://www.agoda.com/th-th/centara-hotel-convention-centre-udon-thani/hotel/udon-thani-th.html?finalPriceView=1&isShowMobileAppPrice=false&cid=-1&numberOfBedrooms=&familyMode=false&adults=2&children=0&rooms=1&maxRooms=0&checkIn=2022-05-22&isCalendarCallout=false&childAges=&numberOfGuest=0&missingChildAges=false&travellerType=1&showReviewSubmissionEntry=false&currencyCode=THB&isFreeOccSearch=false&flexibleDateSearchCriteria=[object%20Object]&isCityHaveAsq=false&tspTypes=2,8,8&los=1&searchrequestid=ebd47462-3d5e-4c53-8c1c-3f1f3141f9f4')

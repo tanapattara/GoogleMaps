@@ -1,0 +1,52 @@
+# Run Driver Chrome
+from selenium import webdriver
+driver = webdriver.Chrome()
+# driver.get('https://www.agoda.com/th-th/centara-hotel-convention-centre-udon-thani/hotel/udon-thani-th.html?finalPriceView=1&isShowMobileAppPrice=false&cid=-1&numberOfBedrooms=&familyMode=false&adults=2&children=0&rooms=1&maxRooms=0&checkIn=2022-05-22&isCalendarCallout=false&childAges=&numberOfGuest=0&missingChildAges=false&travellerType=1&showReviewSubmissionEntry=false&currencyCode=THB&isFreeOccSearch=false&flexibleDateSearchCriteria=[object%20Object]&isCityHaveAsq=false&tspTypes=2,8,8&los=1&searchrequestid=ebd47462-3d5e-4c53-8c1c-3f1f3141f9f4')
+##################################################################
+
+#Run BS4
+import bs4
+data = driver.page_source
+soup = bs4.BeautifulSoup(data)
+import pandas as pd
+###################################################################
+
+#Next Button
+thai_button_next = driver.find_element_by_xpath('//*[@id="reviewSection"]/div[4]/div/span[2]/span[4]')
+thai_button_next.click()
+################################################################################
+
+#################################################################################
+#Next Page
+button_next_page = driver.find_element_by_xpath('//*[@id="reviewSection"]/div[4]/div/span[2]/span[4]')
+button_next_page.click()
+#################################################################################
+
+data = driver.page_source
+soup = bs4.BeautifulSoup(data)
+all_review_score = soup.find_all('div',{'class':'Review-comment-leftScore'})
+all_review_score_list = []
+for review in all_review_score :
+    all_review_score_list.append(review.text)
+all_review_score_list
+
+all_review_name = soup.find_all('div',{'class':'Review-comment-left'})
+all_review_name_list = []
+for review in all_review_name :
+    all_review_name_list.append(review.text)
+all_review_name_list
+
+all_review = soup.find_all('div',{'class':'Review-comment-bubble'})
+all_review_list = []
+for review in all_review :
+    all_review_list.append(review.text)
+all_review_list
+
+review_data = pd.DataFrame([all_review_name_list, all_review_list, all_review_score_list])
+review_data = review_data.transpose()
+review_data.columns = ['name', 'review', 'score']
+review_data
+
+review_data.to_excel(r'C:\Users\Windows10\Desktop\Test_WebScap\Mono_Place_1.xlsx')
+# เครื่องที่พัก
+review_data.to_excel(r'C:\Users\Korakot_SNRU\Desktop\Test_WebScap\The_Pannarai_Hotel_1.xlsx')
