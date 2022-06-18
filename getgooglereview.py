@@ -22,10 +22,7 @@ def scrollandload(driver):
         while i < n:
             html = driver.find_elements(By.CLASS_NAME,'DxyBCb')
             html[0].send_keys(Keys.PAGE_DOWN)
-            time.sleep(2.0)
             i += 1
-
-        time.sleep(5.0) 
         data = driver.page_source
         soup = bs4.BeautifulSoup(data, features="lxml")
         currentload = soup.find_all('div',{'class':'jftiEf fontBodyMedium'})
