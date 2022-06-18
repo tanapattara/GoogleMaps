@@ -3,7 +3,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 
-from datetime import datetime
 import bs4
 import pandas as pd
 import time
@@ -11,7 +10,7 @@ import csv
 
 def scrollandload(driver):
     data = driver.page_source
-    soup = bs4.BeautifulSoup(data, features="lxml")
+    soup = bs4.BeautifulSoup(data, "lxml")
     all_review_score = soup.find_all('div',{'class':'fontBodySmall'})
     allcomment = int(all_review_score[0].text.split()[0].replace(',', ''))
     loaded = 0
@@ -24,7 +23,7 @@ def scrollandload(driver):
             html[0].send_keys(Keys.PAGE_DOWN)
             i += 1
         data = driver.page_source
-        soup = bs4.BeautifulSoup(data, features="lxml")
+        soup = bs4.BeautifulSoup(data, "lxml")
         currentload = soup.find_all('div',{'class':'jftiEf fontBodyMedium'})
         
         if loaded == len(currentload):
@@ -33,14 +32,14 @@ def scrollandload(driver):
         loaded = len(currentload)
         print('get ' + str(loaded) + ':' + str(allcomment))
 
-        if count == 3:
+        if count == 2:
             break
         
         n *= 2
 
 def loaddata(driver):
     data = driver.page_source
-    soup = bs4.BeautifulSoup(data, features="lxml")
+    soup = bs4.BeautifulSoup(data, "lxml")
     all_review_score = soup.find_all('div',{'class':'jftiEf fontBodyMedium'})
 
     list_name = []
