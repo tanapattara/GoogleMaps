@@ -79,7 +79,11 @@ def saveplacedetail(driver, lat, lon):
     place_name = name_element[0].text.strip()
     #get overall score of place
     place_score = soup.find_all('div', {'class', 'F7nice mmu3tf'})
-    place_score = float(place_score[0].span.text)
+    if(place_score[0].span.text.strip() is not ''):
+        place_score = float(place_score[0].span.text)
+    else:
+        place_score = 0
+
     #get category
     place_detail = soup.find_all('div', {'class', 'skqShb'})
     place_category = place_detail[0].contents[1].text.replace('·','') if '·' in  place_detail[0].contents[1].text else place_detail[0].contents[1].text
@@ -101,7 +105,7 @@ def saveplacedetail(driver, lat, lon):
             place_data = existdata.append(place_data, ignore_index = True)        
     
     #save to csv
-    place_data.to_csv(path_to_file, index=False)
+    place_data.to_csv(path_to_file, index=False, encoding='utf-8')
     return [existrecord, place_name]
 
 with open('data/placelist.csv', newline='', encoding='utf-8') as csvfile:
